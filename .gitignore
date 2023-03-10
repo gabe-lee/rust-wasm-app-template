@@ -2,3 +2,4 @@
 /Cargo.lock
 /web/*
 !/web/index.html
+.DS_Store
