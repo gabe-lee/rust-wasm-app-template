@@ -1,0 +1,25 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta content="text/html;charset=utf-8" http-equiv="Content-Type"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>New Rust WASM app</title>
+
+  <!-- <link rel="icon" href="/favicon.ico"> -->
+  <!-- <link rel="stylesheet" href="style.css"> -->
+</head>
+
+<body>
+  <script type="module">
+    import init , { add_in_rust /*, other_exported_funcs */ }  from './bootstrap.js';
+    (async () => {
+      await init();
+      const p = document.createElement("p");
+      p.innerHTML = "This number was calculated from within rust, but called from javascript: "+add_in_rust(21, 21).toString()
+      document.body.appendChild(p);
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,29 @@
+[package]
+name = "rust-wasm-app-template"
+version = "0.1.0"
+edition = "2021"
+authors = ["Gabriel Anderson <gla.ander@gmail.com>"]
+
+[lib]
+crate-type = ["cdylib"]
+
+
+[dependencies]
+wasm-bindgen = "0.2"
+# js-sys = "0.3"
+
+
+[dependencies.web-sys]
+version = "0.3"
+features = ['Document', 'Element', 'HtmlElement', 'Node', 'Window']
+
+# To use scripts, run 'cargo install cargo-run-script' and then type 'cargo run-script <script-name>'
+[package.metadata.scripts]
+build-dev = "wasm-pack build --target web --out-dir web --out-name app --dev; cargo run-script cleanup"
+build-release = "wasm-pack build --target web --out-dir web --out-name app --release; cargo run-script cleanup"
+cleanup = """
+mv web/{app,bootstrap}.js;
+mv web/{app_bg,app}.wasm;
+sed -i -e 's/app_bg/app/g' ./web/bootstrap.js
+rm -f web/*.ts web/package.json web/.gitignore web/README.md web/bootstrap.js-e;
+"""
